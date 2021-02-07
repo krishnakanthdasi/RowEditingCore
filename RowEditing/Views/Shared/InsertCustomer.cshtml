@@ -1,0 +1,28 @@
+﻿@model RowEditing.Models.Customer
+
+@using (Html.BeginForm("Insert", "Home", FormMethod.Post))
+{
+    <table border="1" cellpadding="10">
+        <tr>
+            <td>Customer ID :</td>
+            <td>@Html.TextBoxFor(m => m.Id)</td>
+        </tr>
+        <tr>
+            <td>Company Name :</td>
+            <td>@Html.TextBoxFor(m => m.Name)</td>
+        </tr>
+        <tr>
+            <td>Contact Name :</td>
+            <td>@Html.TextBoxFor(m => m.Role)</td>
+        </tr>
+         
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Save"
+                       formaction="/home/insert" />
+                <input type="submit" value="Cancel"
+                       formaction="/home/index" />
+            </td>
+        </tr>
+    </table>
+}

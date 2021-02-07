@@ -1,0 +1,31 @@
+﻿@model RowEditing.Models.Customer
+
+@using (Html.BeginForm("Update", "Home", FormMethod.Post))
+{
+    <table border="1" cellpadding="10">
+        <tr>
+            <td>Customer ID :</td>
+            <td>
+                @Html.TextBoxFor(m => m.Id,
+                     new { @readonly = "readonly" })
+        </td>
+    </tr>
+    <tr>
+        <td>Company Name :</td>
+        <td>@Html.TextBoxFor(m => m.Name)</td>
+    </tr>
+    <tr>
+        <td>Role :</td>
+        <td>@Html.TextBoxFor(m => m.Role)</td>
+    </tr>
+    
+    <tr>
+        <td colspan="2">
+            <input type="submit" value="Save"
+                   formaction="/home/update" />
+            <input type="submit" value="Cancel"
+                   formaction="/home/cancel/@Model.Id" />
+        </td>
+    </tr>
+</table>
+}

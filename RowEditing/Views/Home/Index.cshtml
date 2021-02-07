@@ -1,0 +1,91 @@
+﻿@model RowEditing.Models.CustomersViewModel;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        .SelectedCustomer {
+            background-color: gray;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>List of Customers</h1>
+
+    <form method="post">
+        <input type="submit"
+               value="Insert" formaction="/home/new" />
+        <br /><br />
+        <table border="1" cellpadding="10">
+            <tr>
+                <th>CustomerID</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th colspan="2">Actions</th>
+            </tr>
+            @foreach (var item in Model.Customers)
+            {
+                if (Model.SelectedCustomer != null)
+                {
+                    if (item.Id ==
+                        Model.SelectedCustomer.Id)
+                    {
+                        @:<tr class="SelectedCustomer">
+                        }
+                        else
+                        {                            
+                           @:<tr>
+                        }
+                    }
+                    else
+                    {
+                        
+                    @:<tr>
+                    }
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Role</td>
+                    <td>
+                        <input type="submit"
+                               formaction="/home/select/@item.Id"
+                               value="Select" />
+                    </td>
+                    <td>
+                        <input type="submit"
+                               formaction="/home/delete/@item.Id"
+                               value="Delete" />
+                    </td>
+                @:</tr>
+            }
+        </table>
+    </form>
+    <br /><br />
+    @{
+        if (Model.SelectedCustomer != null)
+        {
+            if (Model.DisplayMode == "ReadOnly")
+            {
+                Html.RenderPartial
+                ("ShowCustomer", Model.SelectedCustomer);
+            }
+            if (Model.DisplayMode == "ReadWrite")
+            {
+                Html.RenderPartial
+                ("EditCustomer", Model.SelectedCustomer);
+            }
+        }
+        if (Model.DisplayMode == "WriteOnly")
+        {
+            Html.RenderPartial("InsertCustomer",
+            new RowEditing.Models.Customer());
+        }
+    }
+</body>
+        </html>
